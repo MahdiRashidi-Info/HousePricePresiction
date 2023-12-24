@@ -52,12 +52,11 @@ def form_submit_view(request):
         area = request.POST.get('Area')
 
         facilities = request.POST.getlist('facility')
-
+        room = request.POST.get("Room")
 
         parking = 0
         warehouse = 0
         elevator = 0
-        room = 1
 
         if 'parking' in facilities:
             parking = 1
