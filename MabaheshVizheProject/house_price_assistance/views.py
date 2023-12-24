@@ -14,6 +14,9 @@ scaler_file_path = os.path.join(settings.BASE_DIR, 'house_price_assistance', 'st
 
 def examine_view(request):
 
+    #for remove all data in table
+    # PredictPriceModel.objects.all().delete()
+    
     df = pd.read_csv(file_path)      
     original_addresses = df['Original_Address'].tolist()
     return render(request, 'main_form.html' ,{'city' : original_addresses})

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Result</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,7 +12,7 @@
     <script src="../static/scripts.js"></script>
     <style>
       body {
-        background: #212529;
+        background: #152733;
       }
 
       .custom-table {
@@ -29,13 +29,13 @@
               <th scope="col">#</th>
               <th scope="col">Nick Name</th>
               <th scope="col">Phone Number</th>
-              <th scope="col">Area</th>
+              <th scope="col">Area ( Meter )</th>
               <th scope="col">Room Count</th>
-              <th scope="col">State</th>
+              <th scope="col">State ( Region )</th>
               <th scope="col">Have Elevator</th>
               <th scope="col">Have Warehouse</th>
               <th scope="col">Have Parking</th>
-              <th scope="col">Predict Price $</th>
+              <th scope="col">Predict Price In $</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +55,15 @@
             {% endfor %}
           </tbody>
         </table>
+        <div class="form-button mt-3" style="text-align: center">
+          <button id="submit" type="submit" class="btn btn-secondary">
+            <a
+              href="{% url 'examine_view' %}"
+              style="color: white; text-decoration: none"
+              >Back to main page</a
+            >
+          </button>
+        </div>
       </div>
     </div>
   </body>
