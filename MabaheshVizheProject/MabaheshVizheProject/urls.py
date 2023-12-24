@@ -16,9 +16,9 @@ Including another URLconf
 """
 
 from django.urls import path
-from house_price_assistance.views import examine_view,form_submit_view
+from house_price_assistance.views import examine_view,admin_dashboard
 
 urlpatterns = [
     path('', examine_view, name='examine_view'),
-    path('form_submit/', form_submit_view, name='form_submit'),
+    path('dashboard/', admin_dashboard, name='dashboard'),
 ] 

@@ -3,11 +3,10 @@ import os
 from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.templatetags.static import static  # Import the static template tag
-
+from django.templatetags.static import static  
+from house_price_assistance.models import PredictPriceModel
 import numpy as np
 import joblib
-
 
 file_path = os.path.join(settings.BASE_DIR, 'house_price_assistance', 'static', 'addresses.csv')
 model_file_path = os.path.join(settings.BASE_DIR, 'house_price_assistance', 'static', 'knnr_model.joblib')
@@ -18,8 +17,6 @@ def examine_view(request):
     df = pd.read_csv(file_path)      
     original_addresses = df['Original_Address'].tolist()
     return render(request, 'main_form.html' ,{'city' : original_addresses})
-
-
 
 # Load the trained model
 loaded_model = joblib.load(model_file_path)
@@ -39,11 +36,12 @@ def get_prediction(user_input):
     
     return formatted_rounded_prediction
 
-def form_submit_view(request):
+def admin_dashboard(request):
 
     if request.method == 'POST':
-        print(request.POST)
         
+        print(request.POST)
+
         state = request.POST.get('state')
         state_mapping_df = pd.read_csv(file_path)
 
@@ -52,7 +50,7 @@ def form_submit_view(request):
         area = request.POST.get('Area')
 
         facilities = request.POST.getlist('facility')
-        room = request.POST.get("Room")
+        rRoom = request.POST.get("Room")
 
         parking = 0
         warehouse = 0
@@ -66,11 +64,24 @@ def form_submit_view(request):
             elevator = 1
 
 
-        user_input = np.array([[area, room, parking, warehouse, elevator, transformed_value[0]]])
+        user_input = np.array([[area, rRoom, parking, warehouse, elevator, transformed_value[0]]])
         predicted_price = get_prediction(user_input)
 
+        PredictPriceModel.objects.create(
+            name=request.POST.get('nickName'),
+            phone=request.POST.get('phone'),
+            area=area,
+            predict_price=predicted_price,
+            room=rRoom,
+            state=state,
+            needParking = parking,
+            needWareHouse = warehouse,
+            needElevator = elevator,
+        )
         
-        return HttpResponse(predicted_price)
-    else:
-        return HttpResponse('Not allowed to call!')
+        all_rows = PredictPriceModel.objects.all()
+        return render(request, 'result.html' , {'data' : all_rows})       
+    #     return HttpResponse(predicted_price)
+    # else:
+    #     return HttpResponse('Not allowed to call!')
     
