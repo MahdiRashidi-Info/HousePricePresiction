@@ -2,7 +2,7 @@
 # House Price Prediction Web Application
 
 ## Overview
-This project is a web application built with Django that utilizes K-Nearest Neighbors (KNN) algorithms to predict house prices (In Iran). The application allows users to input various features related to a house, and it provides a predicted price based on the KNN model.
+This project is a web application built with Django that utilizes K-Nearest Neighbors (KNN) algorithms to predict house prices (Tehran, Iran). The application allows users to input various features related to a house, and it provides a predicted price based on the KNN model.
 
 ## Features
 - User-Friendly Interface: The web application provides an intuitive interface for users to input information about a house.
